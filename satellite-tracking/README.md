@@ -120,7 +120,7 @@ create table satelliteTracking(
     satellite_id serial primary key,
     user_id integer,
     satellites_name text,
-    launch_date text,
+    sat_info text,
     time_viewable text
 );
 ```

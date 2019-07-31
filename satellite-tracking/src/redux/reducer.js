@@ -4,7 +4,7 @@ const initialState= {
     user: null
 }
 
-const SET_USER = "SET_USER";
+const REQUEST_USER = "REQUEST_USER";
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
@@ -15,9 +15,10 @@ export default function reducer(state = initialState, action) {
     }
 }
 
-export function setUser(user){
+export function requestUserData() {
+    let user = axios.get('/api/session').then(res => res.data);
     return {
         payload: user,
-        type: SET_USER
+        type: REQUEST_USER
     }
 }
