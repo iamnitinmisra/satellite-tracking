@@ -8,6 +8,7 @@ export default class Login extends Component {
         this.state = {
             password: "",
             email: "",
+            zip: "",
             loading: false            
         };
         
@@ -18,8 +19,8 @@ export default class Login extends Component {
             loading: true
         })
         axios.post("/api/login", {
-            email: "testEmail@email.com",
-            password: "password"
+            email: this.state.email,
+            password: this.state.password
         }).then(res => {
             this.props.setUser(res.data);
             this.setState({

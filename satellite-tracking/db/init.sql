@@ -10,11 +10,12 @@ create table users(
 create table profile(
     profile_id serial primary key,
     picture text default 'https://pbs.twimg.com/profile_images/1237550450/mstom_400x400.jpg',
+    zip integer not null check (zip between 0 and 99999),
     user_id integer references users(user_id)
 );
 
-select * from users join profile
-on(users.user_id = profile.user_id);
+-- select * from users join profile
+-- on(users.user_id = profile.user_id);
 
 create table satelliteTracking(
     satellite_id serial primary key,
@@ -24,5 +25,11 @@ create table satelliteTracking(
     time_viewable text
 );
 
-select * from users join satelliteTracking
-on(users.user_id = satelliteTracking.user_id);
+-- select * from users join satelliteTracking
+-- on(users.user_id = satelliteTracking.user_id);
+
+select * from users 
+join profile
+on(users.user_id = profile.user_id);
+join satelliteTracking
+on(users.user_id = satelliteTracking.user_id)

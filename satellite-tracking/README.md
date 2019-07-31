@@ -78,8 +78,8 @@ instructions = /howtoview = Instructions.js
 - GET: => session: => /api/session
 
 **user**
-- UPDATE => profile: => /api/profile/:id 
-- DELETE => profile: => /api/profile/:id
+- UPDATE => updateProfile: => /api/profile/:id 
+- DELETE => deleteProfile: => /api/profile/:id
 
 **N2YO**
 - GET: => http://www.n2yo.com/rest/v1/satellite/visualpasses/{id}/{observer_lat}/{observer_lng}/{observer_alt}/{days}/{min_visibility} 
