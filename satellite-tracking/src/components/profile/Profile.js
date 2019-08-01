@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+// import { requestUserData } from "../../redux/reducer";
+// import { connect } from 'react-redux'
 
 export default class Profile extends Component {
   constructor(props) {
@@ -11,12 +13,16 @@ export default class Profile extends Component {
     };
   }
 
+  // componentDidMount() {
+  //   this.props.requestUserData();
+  // }
+
   render() {
     return (
-      <div className="app">
+      <div className="profile">
         <header>
-        <div>    SAT-TRAC</div>
-        <menu></menu>
+          <span>SAT-TRAC</span>
+          <span>Menu</span>
         </header>
         <div className="location-container">Your Current Location</div>
         <div className="tracked-sat-container">Tracked Satellites</div>
@@ -27,3 +33,11 @@ export default class Profile extends Component {
     );
   }
 }
+
+// function mapStateToProps(state) {
+//   return state;
+// }
+
+// const connectInvoked = connect(mapStateToProps);
+
+// export default connectInvoked(Profile);

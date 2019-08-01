@@ -37,4 +37,22 @@ export default class Login extends Component {
             this.props.setUser(res.data)
         })
     }
+
+    render() {
+        const { email, password } = this.state
+        return(
+            <div className='login-container'>
+                <input
+                    placeholder="email"
+                    name="email"
+                    value={email}
+                />
+                <input
+                    placeholder="password"
+                    name="password"
+                    value={password}
+                    />
+            </div>
+        )
+    }
 }

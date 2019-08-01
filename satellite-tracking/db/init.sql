@@ -10,7 +10,7 @@ create table users(
 create table profile(
     profile_id serial primary key,
     picture text default 'https://pbs.twimg.com/profile_images/1237550450/mstom_400x400.jpg',
-    zip integer not null check (zip between 0 and 99999),
+    zip integer not null check (zip between 10000 and 99999),
     user_id integer references users(user_id)
 );
 

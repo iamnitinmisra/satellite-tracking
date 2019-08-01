@@ -10,7 +10,7 @@ module.exports = {
       .select_user(email)
       .catch(err => console.log(err));
     if (!foundUser.length) {
-      res.status(401).send("That username and/or password does not exist");
+      res.status(401).send("That username does not exist");
     } else {
       const matchedPassword = await bcrypt
         .compare(password, foundUser[0].password)
@@ -18,13 +18,15 @@ module.exports = {
 
       if (matchedPassword) {
         foundUser[0];
+        console.log(foundUser[0])
         req.session.user = {
           user_id: foundUser[0].user_id,
-          user_email: foundUser[0].user_email
+          user_email: foundUser[0].user_email,
+          user_zip: foundUser[0].zip
         };
         res.status(200).send(req.session.user);
       } else {
-        res.status(401).send("That username and/or password does not exist");
+        res.status(401).send("That password does not exist");
       }
     }
   },
@@ -56,7 +58,7 @@ module.exports = {
     })
   },
   logout: (req, res, next) => {
-    res.session.destroy();
+    req.session.destroy();
     res.status(200).send([]);
   },
   userSession: (req, res, next) => {
