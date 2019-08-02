@@ -1,5 +1,5 @@
-insert into profile(user_id, zip)
-values ($1, $2);
+insert into profile(user_id, zip, lat, lng)
+values ($1, $2, $3, $4);
 
 select * from users
 join profile

@@ -1,58 +1,92 @@
-import React, { Component } from 'react';
-import axios from 'axios'
-import './Login.scss'
+import React, { Component } from "react";
+import axios from "axios";
+import {requestUserData} from '../../redux/reducer'
+import { connect } from 'react-redux'
+import "./Login.scss";
 
-export default class Login extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            password: "",
-            email: "",
-            zip: "",
-            loading: false            
-        };
-        
-    }
 
-    login() {
-        this.setState({
-            loading: true
-        })
-        axios.post("/api/login", {
-            email: this.state.email,
-            password: this.state.password
-        }).then(res => {
-            this.props.setUser(res.data);
-            this.setState({
-                loading: false
-            })
-        })
-    }
+class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      password: "",
+      email: "",
+      zip: "",
+      loading: false
+    };
+    this.login = this.login.bind(this);
+  }
 
-    register() {
-        axios.post("/api/register", {
-            email: this.state.email,
-            password: this.state.password
-        }).then(res => {
-            this.props.setUser(res.data)
-        })
-    }
+  login(e) {
+    e.preventDefault()
+    this.setState({
+      loading: true
+    });
+    axios
+      .post("/api/login", {
+        email: this.state.email,
+        password: this.state.password
+      })
+      .then(res => {
+        // console.log(res.data)
+        if(res.data.message){
+          alert(res.data.message)
+        }
+        else {
+        this.props.requestUserData(res.data)
+        this.props.history.push('/welcome')
+      };
+        // this.setState({
+        //   loading: false
+        // });
+      }).catch(err => console.log(err));
+  }
 
-    render() {
-        const { email, password } = this.state
-        return(
-            <div className='login-container'>
-                <input
-                    placeholder="email"
-                    name="email"
-                    value={email}
-                />
-                <input
-                    placeholder="password"
-                    name="password"
-                    value={password}
-                    />
-            </div>
-        )
-    }
+  universalChangeHandler(property, value) {
+    this.setState({
+      [property]: value
+    });
+  }
+
+  render() {
+    const { email, password } = this.state;
+
+    // console.log("from redux =>",this.props)
+    // console.log("from state =>", email, password);
+    return (
+      <div className="login-container">
+        <form onSubmit={this.login}>
+          <input
+            placeholder="email"
+            name="email"
+            value={email}
+            onChange={event =>
+              this.universalChangeHandler(event.target.name, event.target.value)
+            }
+          />
+          <input
+            placeholder="password"
+            name="password"
+            value={password}
+            onChange={event =>
+              this.universalChangeHandler(event.target.name, event.target.value)
+            }
+          />
+          <input type='submit' value='Submit' />
+        </form>
+      </div>
+    );
+  }
 }
+
+function mapStateToProps(state) {
+  return state;
+}
+
+const mapDispatchToProps = {
+  requestUserData
+}
+
+const connectInvoked = connect(mapStateToProps, mapDispatchToProps);
+
+export default connectInvoked(Login);

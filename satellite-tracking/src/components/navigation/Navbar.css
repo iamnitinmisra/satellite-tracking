@@ -1,0 +1,99 @@
+header {
+    height: 90px;
+    width: 100%;
+    background: black;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 2;
+  }
+  
+  header > div {
+    height: 100%;
+    width: 100%;
+    max-width: 1000px;
+    padding: 0 20px;
+    background: rgb(56,56,56);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  header nav ul {
+    min-width: 400px;
+    /* min-height: 50vh; */
+    display: flex;
+    /* flex-direction: row; */
+    /* background: green; */
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 0px 20px 20px
+  }
+  
+  header a {
+    color: white;
+    text-decoration: none;
+  }
+  
+   .logo {
+    color: #fed136;
+    font-size: 20px;
+    font-family: 'Kaushan Script', 'Segoe UI','Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+    z-index: 2;
+    font-weight: bold;
+  }
+  
+  header div button {
+    display: none;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    top: 20px;
+    right: 20px;
+    height: 40px;
+    width: 80px;
+    z-index: 1;
+  }
+  
+  @media screen and (max-width: 990px){
+    header nav {
+      /* min-height: 100vh; */
+      background: rgb(56, 56, 56);
+      position: fixed;
+      /* display: none; */
+      /* justify-content: flex-end; */
+      /* align-items: ; */
+      top: 0px;
+      right: 0;
+      transform: translate(0, -500px);
+      transition: 1s;
+      z-index: -1;
+    }
+  
+  
+  header div button {
+    display: flex;
+    background: #fed136;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  header nav ul {
+    padding-top: 90px;
+    min-width: 100vw;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 300px;
+  }
+  
+  header .show {
+    transform: translate(0, 0);
+  }
+  
+  .logo{
+    z-index: 1;
+  }
+  }

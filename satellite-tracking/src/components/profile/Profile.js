@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import { requestUserData } from "../../redux/reducer";
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 
 export default class Profile extends Component {
   constructor(props) {
@@ -34,10 +34,10 @@ export default class Profile extends Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   return state;
-// }
+function mapStateToProps(state) {
+  return state;
+}
 
-// const connectInvoked = connect(mapStateToProps);
+const connectInvoked = connect(mapStateToProps);
 
-// export default connectInvoked(Profile);
+export default connectInvoked(Profile);
