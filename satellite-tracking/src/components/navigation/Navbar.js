@@ -6,46 +6,49 @@ export default class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toggleMenu: false
+        toggleTopBar: false,
+        showMenu: false,
+        showSignIn: true,
     };
-    this.toggleMenuFunction = this.toggleMenuFunction.bind(this);
+    this.toggleTopBarFunction = this.toggleTopBarFunction.bind(this)
   }
-  toggleMenuFunction() {
+
+  toggleTopBarFunction() {
     this.setState(prevState => {
+        // console.log("hit")
       return {
-        toggleMenu: !prevState.toggleMenu
+        toggleTopBar: !prevState.toggleTopBar
       };
     });
   }
 
   render() {
+      console.log(this.state.toggleTopBar)
     return (
       <header>
         <div>
           <div>
-            <a href="#" className="logo">
-              SAT-TRAC
-            </a>
+            <a href="#" className="logo">SAT-TRAC</a>
           </div>
-          <button onClick={this.toggleMenuFunction}>Menu</button>
-        </div>
+          <button onClick={this.toggleTopBarFunction}>Menu</button>
 
-        <nav className={this.state.toggleMenu ? "show" : ""}>
-          <ul>
-            <li>
-              <a href="#">Home</a>
-            </li>
-            <li>
-              <a href="#">Search</a>
-            </li>
-            <li>
-              <a href="#">Profile</a>
-            </li>
-            <li>
-              <a href="#">Logout</a>
-            </li>
-          </ul>
-        </nav>
+          <nav className={this.state.toggleTopBar ? "show" : ""}>
+            <ul>
+              <li>
+                <a href="#">Home</a>
+              </li>
+              <li>
+                <a href="#">Search</a>
+              </li>
+              <li>
+                <a href="#">Profile</a>
+              </li>
+              <li>
+                <a href="#">Logout</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </header>
     );
   }

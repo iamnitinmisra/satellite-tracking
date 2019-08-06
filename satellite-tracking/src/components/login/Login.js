@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import {requestUserData} from '../../redux/reducer'
-import { connect } from 'react-redux'
-import "./Login.scss";
-
+import { requestUserData } from "../../redux/reducer";
+import { connect } from "react-redux";
+import Background from "../background/Background";
+import "./Login.css";
 
 class Login extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class Login extends Component {
   }
 
   login(e) {
-    e.preventDefault()
+    e.preventDefault();
     this.setState({
       loading: true
     });
@@ -29,17 +29,17 @@ class Login extends Component {
       })
       .then(res => {
         // console.log(res.data)
-        if(res.data.message){
-          alert(res.data.message)
+        if (res.data.message) {
+          alert(res.data.message);
+        } else {
+          this.props.requestUserData(res.data);
+          this.props.history.push("/welcome");
         }
-        else {
-        this.props.requestUserData(res.data)
-        this.props.history.push('/welcome')
-      };
         // this.setState({
         //   loading: false
         // });
-      }).catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
   }
 
   universalChangeHandler(property, value) {
@@ -55,6 +55,7 @@ class Login extends Component {
     // console.log("from state =>", email, password);
     return (
       <div className="login-container">
+        <Background />
         <form onSubmit={this.login}>
           <input
             placeholder="email"
@@ -72,8 +73,9 @@ class Login extends Component {
               this.universalChangeHandler(event.target.name, event.target.value)
             }
           />
-          <input type='submit' value='Submit' />
+          <input type="submit" value="Submit" className="submit-button" />
         </form>
+        <div className="nonmember">I'm not a member</div>
       </div>
     );
   }
@@ -85,8 +87,11 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   requestUserData
-}
+};
 
-const connectInvoked = connect(mapStateToProps, mapDispatchToProps);
+const connectInvoked = connect(
+  mapStateToProps,
+  mapDispatchToProps
+);
 
 export default connectInvoked(Login);

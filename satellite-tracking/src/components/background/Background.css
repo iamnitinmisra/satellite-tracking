@@ -1,0 +1,11 @@
+.background {
+    background-color: rgb(24, 24, 24);
+    background-image: url("../../media/astrology-astronomy-constellation-2034892.jpg");
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: -1;
+    /* display: flex; */
+}
+
