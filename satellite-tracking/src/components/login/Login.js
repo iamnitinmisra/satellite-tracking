@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { requestUserData } from "../../redux/reducer";
+import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import Background from "../background/Background";
 import "./Login.css";
@@ -54,28 +55,42 @@ class Login extends Component {
     // console.log("from redux =>",this.props)
     // console.log("from state =>", email, password);
     return (
-      <div className="login-container">
+      <div>
         <Background />
         <form onSubmit={this.login}>
-          <input
-            placeholder="email"
-            name="email"
-            value={email}
-            onChange={event =>
-              this.universalChangeHandler(event.target.name, event.target.value)
-            }
-          />
-          <input
-            placeholder="password"
-            name="password"
-            value={password}
-            onChange={event =>
-              this.universalChangeHandler(event.target.name, event.target.value)
-            }
-          />
-          <input type="submit" value="Submit" className="submit-button" />
+          <div className="login-container">
+            <input
+              placeholder="email"
+              name="email"
+              value={email}
+              onChange={event =>
+                this.universalChangeHandler(
+                  event.target.name,
+                  event.target.value
+                )
+              }
+            />
+            <input
+              placeholder="password"
+              name="password"
+              value={password}
+              onChange={event =>
+                this.universalChangeHandler(
+                  event.target.name,
+                  event.target.value
+                )
+              }
+            />
+            <div>
+              <input type="submit" value="Submit" className="submit-button" />
+            </div>
+            <NavLink to="/signup">
+              <ul>
+                <li className="nonmember">I'm not a member</li>
+              </ul>
+            </NavLink>
+          </div>
         </form>
-        <div className="nonmember">I'm not a member</div>
       </div>
     );
   }

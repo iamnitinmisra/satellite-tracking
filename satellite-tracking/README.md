@@ -78,7 +78,7 @@ instructions = /howtoview = Instructions.js
 - GET: => session: => /api/session
 
 **user**
-- UPDATE => updateProfile: => /api/profile/:id 
+- PUT => updateProfile: => /api/profile/:id 
 - DELETE => deleteProfile: => /api/profile/:id
 
 **N2YO**

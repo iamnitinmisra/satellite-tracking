@@ -3,13 +3,14 @@ import { Route, Switch } from "react-router-dom";
 import Signup from "./components/signup/Signup";
 import Login from "./components/login/Login";
 import Home from "./components/home/Home";
-import Profile from "./components/home/Home";
+import Profile from "./components/profile/Profile";
 // import Navbar from "./components/navigation/Navbar";
 import Welcome from "./components/welcome/Welcome"
 import { requestUserData } from "./redux/reducer";
 import { connect } from "react-redux";
 import "./App.css";
 import Axios from "axios";
+import Search from "./components/search/Search";
 
 class App extends Component {
 
@@ -31,6 +32,7 @@ class App extends Component {
             <Route path="/signup" component={Signup} />
             <Route path="/profile" component={Profile} />
             <Route path="/welcome" component={Welcome} />
+            <Route path="/search" component={Search} />
           </Switch>
         </div>
       </div>

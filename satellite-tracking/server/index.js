@@ -8,6 +8,7 @@ const {
   register,
   userSession
 } = require("./controllers/authController");
+const { deleteProfile, updateZip } = require("./controllers/profileController");
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 const app = express();
 
@@ -29,13 +30,14 @@ app.use(
   })
 );
 
-app.post('/api/login', login)
-app.post('/api/register', register)
-app.get('/api/session', userSession)
+app.post("/api/login", login);
+app.post("/api/register", register);
+app.get("/api/session", userSession);
 
 //user_id required
-app.get('/api/logout', logout)
-
+app.get("/api/logout", logout);
+app.delete("/api/profile/:id", deleteProfile);
+app.put("/api/profile/:id", updateZip);
 app.listen(SERVER_PORT, () =>
   console.log(`Listening on server port ${SERVER_PORT}`)
 );

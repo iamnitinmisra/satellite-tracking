@@ -40,7 +40,7 @@ module.exports = {
     const { password, email, zip } = req.body;
     const zipData = await axios
       .get(
-        `https://www.zipcodeapi.com/rest/f3wNeXd1clG23gMYGZosDNRDmRC0Rh6hhJJ07QgtIVK9Vr2RPI0HxF0foZPiLy7U/info.json/${zip}/degrees`
+        `https://www.zipcodeapi.com/rest/zQikoFcAnHS1gCG1Ugm9n1Wo6PDD827OePlkSIclLsqftHtUOAqNql2f2AP8EBPt/info.json/${zip}/degrees`
       ) //not my api key"
       .then(res => {
         // console.log(res.data);

@@ -16,11 +16,13 @@
 } */
 button{
     background-color: rgba(24, 24, 24, 0);
-    border-color: rgb(170,170,170);
+    border-color: rgb(214, 214, 214);
+    border-width: 2px;
     color: white;
     height: 40px;
     min-width: 100px;
     transition-duration: 0.4s;
+
 }
 
 button:hover{
@@ -52,7 +54,7 @@ button:hover{
     height: 30vh;
     justify-content: center;
     z-index: 10;
-    color: white;
+    color: rgb(214,214,214);
     display: flex;
     font-size: 5em
 }

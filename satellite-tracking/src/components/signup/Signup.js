@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Background from "../background/Background";
+import './Signup.scss'
 
 export default class Signup extends Component {
   constructor(props) {
@@ -47,8 +49,11 @@ export default class Signup extends Component {
       console.log(firstName, lastName, zip, email, password)
     return (
       <div>
+        <Background />
         <form onSubmit={this.register}>
+          <div className="registration-container">
           <input
+            type="text"
             placeholder="First Name"
             name="firstName"
             value={firstName}
@@ -90,6 +95,7 @@ export default class Signup extends Component {
             }
           />
           <input type='submit' value='Submit'/>
+          </div>
         </form>
       </div>
     );
