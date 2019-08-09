@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Navbar from "../navigation/Navbar";
-import axios from 'axios'
+import axios from "axios";
 import { requestUserData } from "../../redux/reducer";
 import Background from "../background/Background";
 import "./Profile.scss";
@@ -14,27 +14,47 @@ class Profile extends Component {
       zip: "",
       latitude: "",
       longitude: "",
+      hideZipInput: true,
       trackedSatellites: ""
     };
+    this.updateZip = this.updateZip.bind(this);
   }
 
-  deleteProfile(id){
-    console.log('delete button hit')
+  deleteProfile(id) {
+    console.log("delete button hit");
     axios.delete(`/api/profile/${id}`).then(res => {
-      this.props.requestUserData(null)  // clears out redux store  
-      this.setState({ user: res.data })
+      this.props.requestUserData(null); // clears out redux store
+      this.setState({ user: res.data });
       this.props.history.push("/login");
-    })
+    });
   }
 
-  updateZip(id, zip){
+  updateZip(e, id, zip) {
+    e.preventDefault();
     axios.put(`/api/profile/${id}?zip=${zip}`).then(res => {
       this.setState({ user: res.data })
-    })
+      this.props.requestUserData(res.data);
+      // console.log(this.props.user);
+    });
+  }
+
+  hideZipInputToggle() {
+    this.setState(prevState => {
+      return {
+        hideZipInput: !prevState.hideZipInput
+      };
+    });
+  }
+
+  universalChangeHandler(property, value) {
+    this.setState({
+      [property]: value
+    });
   }
 
   render() {
-    // console.log(this.props);
+    const { zip } = this.state;
+    console.log(zip);
     if (!this.props.user) {
       return <></>; //this checks to see if redux has a user and if not
     }
@@ -48,7 +68,43 @@ class Profile extends Component {
           <div className="location-container">
             <div className="current-location">Your Current Location</div>
             <div>
-              Zip: <span className="zip">{this.props.user.user_zip}</span>
+              Zip:
+              <span
+                className={
+                  this.state.hideZipInput
+                    ? "input-new-zip-hide"
+                    : "input-new-zip-show"
+                }
+              >
+                <form
+                  onSubmit={e =>
+                    this.updateZip(e, this.props.user.user_id, zip)
+                  }
+                >
+                  {/* update zip code */}
+                  <input
+                    className="new-zip-input-field"
+                    placeholder={this.props.user.user_zip}
+                    name="zip"
+                    value={zip}
+                    onChange={event =>
+                      this.universalChangeHandler(
+                        event.target.name,
+                        event.target.value
+                      )
+                    }
+                  />
+                  <input
+                    type="submit"
+                    value="Submit"
+                    className="hidden-submit-input"
+                    onClick={() => this.hideZipInputToggle()}
+                  />
+                </form>
+              </span>
+              <span className={this.state.hideZipInput ? "zip" : "hide-zip"}>
+                {this.props.user.user_zip}
+              </span>
             </div>
             <div>
               Latitude: <span className="lat">{this.props.user.user_lat}</span>
@@ -56,14 +112,24 @@ class Profile extends Component {
             <div>
               Longitude:<span className="lng">{this.props.user.user_lng}</span>
             </div>
-            <button className="change-location-button">Change Location</button>
+            <button
+              className="change-location-button"
+              onClick={() => this.hideZipInputToggle()}
+            >
+              Change Location
+            </button>
           </div>
           <div className="tracked-sat-container">
             <div className="tracked-satellites">Tracked Satellites</div>
           </div>
 
           <div className="delete-button-container">
-            <button className="dont-do-it" onClick={()=>this.deleteProfile(this.props.user.user_id)}>Delete account</button>
+            <button
+              className="dont-do-it"
+              onClick={() => this.deleteProfile(this.props.user.user_id)}
+            >
+              Delete account
+            </button>
           </div>
         </div>
       </div>

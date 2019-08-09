@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { NavLink, withRouter } from "react-router-dom";
-import {connect } from 'react-redux';
-import { requestUserData } from '../../redux/reducer';
+import { connect } from "react-redux";
+import { requestUserData } from "../../redux/reducer";
 import "./Navbar.css";
 import axios from "axios";
 
@@ -10,8 +10,8 @@ class Navbar extends Component {
     super(props);
     this.state = {
       user: null,
-      toggleTopBar: false,
-      showMenu: false
+      toggleTopBar: false
+      // showMenu: false
       // showSignIn: true,
     };
     this.toggleTopBarFunction = this.toggleTopBarFunction.bind(this);
@@ -30,7 +30,7 @@ class Navbar extends Component {
   logout(e) {
     e.preventDefault();
     axios.get("/api/logout").then(() => {
-      this.props.requestUserData(null)
+      this.props.requestUserData(null);
       // console.log(this.props)
       this.props.history.push("/login");
     });
@@ -40,11 +40,13 @@ class Navbar extends Component {
     // console.log(this.state.toggleTopBar);
     return (
       <header>
-        <div>
+        <div className="menu-container">
           <div>
             <NavLink to="/welcome">SAT-TRAC</NavLink>
           </div>
-          <button onClick={this.toggleTopBarFunction}>Menu</button>
+          <button className="menu-button" onClick={this.toggleTopBarFunction}>
+            Menu
+          </button>
 
           <nav className={this.state.toggleTopBar ? "show" : ""}>
             <ul>
@@ -83,5 +85,4 @@ const connectInvoked = connect(
   mapDispatchToProps
 );
 
-export default withRouter (connectInvoked(Navbar));
-
+export default withRouter(connectInvoked(Navbar));

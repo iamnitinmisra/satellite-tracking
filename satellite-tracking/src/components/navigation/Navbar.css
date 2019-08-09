@@ -52,14 +52,14 @@ header {
     position: absolute;
     justify-content: center;
     align-items: center;
-    top: 20px;
+    top: 13px;
     right: 20px;
     height: 40px;
     width: 80px;
     z-index: 1;
   }
   
-  @media screen and (max-width: 1043px){
+  @media screen and (max-width: 1126px){
     header nav {
       /* min-height: 100vh; */
       background: rgb(56, 56, 56);
@@ -77,17 +77,18 @@ header {
   
   header div button {
     display: flex;
-    background: rgb(56,56,56);
+    background: black;
     color: white;
     border-radius: 5px;
     font-size: 16px;
+    /* margin-bottom: 100px; */
   }
   
   header nav ul {
     padding-top: 90px;
     min-width: 100vw;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     height: 300px;
   }
   
