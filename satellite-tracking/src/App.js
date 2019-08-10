@@ -4,7 +4,7 @@ import Signup from "./components/signup/Signup";
 import Login from "./components/login/Login";
 import Home from "./components/home/Home";
 import Profile from "./components/profile/Profile";
-// import Navbar from "./components/navigation/Navbar";
+import Satellite from "./components/satellite/Satellite";
 import Welcome from "./components/welcome/Welcome"
 import { requestUserData } from "./redux/reducer";
 import { connect } from "react-redux";
@@ -33,6 +33,7 @@ class App extends Component {
             <Route path="/profile" component={Profile} />
             <Route path="/welcome" component={Welcome} />
             <Route path="/search" component={Search} />
+            <Route path="/satellite/:satId" component={Satellite} />
           </Switch>
         </div>
       </div>

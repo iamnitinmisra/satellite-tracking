@@ -23,7 +23,7 @@ module.exports = {
     //axios to external api with new zip
     const zipData = await axios
       .get(
-        `https://www.zipcodeapi.com/rest/EEw9386oEBdxQZT4h9EDvZTFdd9IfcaABAuoA3hBD6rU4Epe5BPAfFjcSlO5NQEB/info.json/${updateZip}/degrees`
+        `https://www.zipcodeapi.com/rest/kOG5lF8QkczEUsfJLvwreaPQLLMAo5Wsp0orHvbfacQOgqRoafnwMP5mZvgQBU70/info.json/${updateZip}/degrees`
       ) //not my api key"
       .then(res => {
         return res.data;
