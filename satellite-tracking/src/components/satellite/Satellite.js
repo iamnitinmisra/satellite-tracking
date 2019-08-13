@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import { requestUserData } from "../../redux/reducer";
+import Moment from "react-moment";
 import Navbar from "../../components/navigation/Navbar";
 import Background from "../../components/background/Background";
 import "./Satellite.scss";
@@ -11,15 +12,15 @@ class Satellite extends Component {
     super(props);
     this.state = {
       myData: {},
-      alt: 0,
+      satName: "",
+      alt: 1,
       days: 7, // check over the course of one week
       dur: 30 // show if visible for at least 30 seconds
     };
   }
-
-  async componentDidUpdate(prevProps) {
-      if (JSON.stringify(prevProps.user) !== JSON.stringify(this.props.user)){
-    //   console.log(this.props.user)
+  async componentDidMount() {
+    //   async componentDidUpdate(prevProps) {
+    //       if (JSON.stringify(prevProps.user) !== JSON.stringify(this.props.user)){
     const satelliteInfo = await axios
       .get(
         `http://www.n2yo.com/rest/v1/satellite/visualpasses/${
@@ -34,42 +35,61 @@ class Satellite extends Component {
         return res.data;
       })
       .catch(err => console.log(err));
-    // console.log("res.data", satelliteInfo)
     this.setState({
-      myData: satelliteInfo
+      myData: satelliteInfo,
+      satName: satelliteInfo.info.satname
     });
-    console.log(this.state.myData)}
+    // console.log(this.state.myData.info.satname); /*}*/
   }
 
   render() {
-    console.log(this.state.myData.passes);
+    // console.log(this.state.myData);
+    // console.log(this.state.myData.info.satname)
     if (!this.props.user) {
       return <></>;
     }
-    const passes = this.state.myData.passes
-      ? this.state.myData.passes.map(pass => (
-          <div className="passes">
-            <li>
-              Start Time {"(UTC)"}: {pass.startUTC}
-            </li>
-            <li>Start Azimuth: {pass.startAz}</li>
-            <li>Max Elevation: {pass.maxEl}</li>
-            <li>
-              End Time {"(UTC)"}: {pass.endUTC}
-            </li>
-            <li>End Azimuth: {pass.endAz}</li>
-            <li>Duration: {pass.duration}</li>
-            <br />
-          </div>
-        ))
-      : false;
+    // console.log(this.state.myData)
+    // const satName = this.state.myData.info.satname
+    const passes = this.state.myData.passes ? (
+      this.state.myData.passes.map((pass, i) => (
+        <div key={i} className="pass">
+          <li>
+            <b>Start Time:</b> <Moment unix>{pass.startUTC}</Moment>
+          </li>
+          <li>
+            <b>Start Azimuth:</b> {pass.startAz}° {pass.startAzCompass}
+          </li>
+          <li><b>Max Elevation:</b> {pass.maxEl}</li>
+          <li>
+          <b>End Time:</b> <Moment unix>{pass.endUTC}</Moment>
+          </li>
+          <li>
+          <b>End Azimuth:</b> {pass.endAz}° {pass.endAzCompass}
+          </li>
+          <li><b>Duration:</b> {Math.round((pass.duration / 60) * 10) / 10}min</li>
+          <br />
+        </div>
+      ))
+    ) : (
+      <div className="no-pass">
+        Unfortunately, over the next 7 days, there will be no visual passes
+        overhead from your location
+      </div>
+    );
+
     return (
       <div>
         <div className="components">
-          <Navbar /> <Background />
+          <Navbar />
+          <Background />
         </div>
-        <div>
-          <ul>{passes}</ul>
+        <div className="sat-component-container">
+          <div className="passes-container">
+            <div className="satName">{this.state.satName}</div>
+            <div>
+              <ul>{passes}</ul>
+            </div>
+          </div>
         </div>
       </div>
     );

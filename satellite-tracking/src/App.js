@@ -17,7 +17,7 @@ class App extends Component {
   componentDidMount() {
     Axios.get("/api/session").then(res => {
       this.props.requestUserData(res.data);
-      console.log(res.data)
+      // console.log(res.data)
     });
   }
 

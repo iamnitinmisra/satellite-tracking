@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
 import Navbar from "../navigation/Navbar";
 import axios from "axios";
 import { requestUserData } from "../../redux/reducer";
@@ -68,9 +67,9 @@ class Profile extends Component {
         <div className="profile-component-container">
           <div className="location-container">
             <div className="current-location">Your Current Location</div>
-            <div>
-              Zip:
-              <span
+            <div className="zip-container">
+              <div className="zip-text">Zip:</div>
+              <div
                 className={
                   this.state.hideZipInput
                     ? "input-new-zip-hide"
@@ -82,7 +81,6 @@ class Profile extends Component {
                     this.updateZip(e, this.props.user.user_id, zip)
                   }
                 >
-                  {/* update zip code */}
                   <input
                     className="new-zip-input-field"
                     placeholder={this.props.user.user_zip}
@@ -102,10 +100,11 @@ class Profile extends Component {
                     onClick={() => this.hideZipInputToggle()}
                   />
                 </form>
-              </span>
-              <span className={this.state.hideZipInput ? "zip" : "hide-zip"}>
+              </div>
+
+              <div className={this.state.hideZipInput ? "zip" : "hide-zip"}>
                 {this.props.user.user_zip}
-              </span>
+              </div>
             </div>
             <div>
               Latitude: <span className="lat">{this.props.user.user_lat}</span>
@@ -120,74 +119,6 @@ class Profile extends Component {
               Change Location
             </button>
           </div>
-          <div className="tracked-sat-container">
-            <div className="tracked-satellites">List of Satellites</div>
-            <ul className="sat-list">
-              <li>
-                <NavLink to="/satellite/25544">
-                  International Space Station
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/36516">SES 1</NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/33591">NOAA 19</NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/29155">GOES 13</NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/25338">NOAA 15</NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/28654">NOAA 18</NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/25994">TERRA</NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/27424">AQUA</NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/38771">METOP-B</NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/37849">SUOMI NPP</NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/36411">GOES 15</NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/40967">FOX-1A {"(AO-85)"}</NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/27607">SAUDISAT 1C</NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/41332">KMS-4</NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/37820">TIANGONG 1</NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/40069">METEOR M2</NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/25657">ASIASAT 3S</NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/36032">NSS 12</NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/31135">AGILE</NavLink>
-              </li>
-              <li>
-                <NavLink to="/satellite/40147">MEASAT 3B</NavLink>
-              </li>
-            </ul>
-          </div>
-
           <div className="delete-button-container">
             <button
               className="dont-do-it"

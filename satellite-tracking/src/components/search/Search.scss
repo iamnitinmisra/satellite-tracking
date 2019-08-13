@@ -1,0 +1,39 @@
+.search-component-container {
+    // margin: 10vh;
+    padding-top: 10vh;
+    // margin-left: 10vw;
+    // width: 50vw;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tracked-sat-container{
+    // margin-top: 10vh;
+    width: 250px;
+    min-height: 420px;
+    background-color: black;
+    opacity: 0.8;
+    color: rgb(200,200,200);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: solid rgb(200,200,200);
+    margin-top: 10vh;
+
+}
+
+.tracked-satellites{
+    margin-bottom: 20px;
+}
+
+.sat-list {
+    list-style-type: none;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

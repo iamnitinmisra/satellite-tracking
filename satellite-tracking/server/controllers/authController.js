@@ -11,7 +11,7 @@ module.exports = {
       .select_user(email)
       .catch(err => console.log(err));
     if (!foundUser.length) {
-      res.status(401).send({ message: "That username does not exist" });
+      res.status(401).send({ message: "That username/password does not exist" });
     } else {
       const matchedPassword = await bcrypt
         .compare(password, foundUser[0].password)
@@ -19,7 +19,7 @@ module.exports = {
 
       if (matchedPassword) {
         foundUser[0];
-        console.log(foundUser[0]);
+        // console.log(foundUser[0]);
         req.session.user = {
           user_id: foundUser[0].user_id,
           user_email: foundUser[0].user_email,
@@ -29,7 +29,7 @@ module.exports = {
         };
         res.status(200).send(req.session.user);
       } else {
-        res.status(401).send({ message: "That password does not exist" });
+        res.status(401).send({ message: "That username/password does not exist" });
       }
     }
   },
@@ -40,7 +40,7 @@ module.exports = {
     const { password, email, zip } = req.body;
     const zipData = await axios
       .get(
-        `https://www.zipcodeapi.com/rest/kOG5lF8QkczEUsfJLvwreaPQLLMAo5Wsp0orHvbfacQOgqRoafnwMP5mZvgQBU70/info.json/${zip}/degrees`
+        `https://www.zipcodeapi.com/rest/xb6Ouqgn8iSRHStMqNjzotS7F7iHkfGynZiPBNDecCP2ueSyv5nF7cCcK6veARY0/info.json/${zip}/degrees`
       ) //not my api key"
       .then(res => {
         // console.log(res.data);
@@ -65,7 +65,7 @@ module.exports = {
                 // console.log("this is the created user", user);
                 db.create_profile([user[0].user_id, zip, lat, lng]).then(
                   user => {
-                    console.log("this is the joined profile", user);
+                    // console.log("this is the joined profile", user);
                     req.session.user = user;
                     res.status(200).send(req.session.user);
                   }

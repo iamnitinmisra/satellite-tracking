@@ -40,12 +40,17 @@ export default class Signup extends Component {
 
   render() {
     const { firstName, lastName, zip, email, password } = this.state;
-    console.log(firstName, lastName, zip, email, password);
+    // console.log(firstName, lastName, zip, email, password);
     return (
       <div>
+        <div className = 'components'>
         <Background />
+        </div>
+        <div className = 'form-container'>
         <form onSubmit={this.register}>
-          <div className="registration-container">
+          {/* <div className="registration-container"> */}
+          <div className='sign-up-form'>
+            <div className='sign-up'>Sign-up</div>
             <input
               type="text"
               placeholder="First Name"
@@ -105,8 +110,11 @@ export default class Signup extends Component {
             />
             <input type="submit" value="Submit" />
           </div>
+          {/* </div> */}
         </form>
+        </div>
       </div>
+
     );
   }
 }

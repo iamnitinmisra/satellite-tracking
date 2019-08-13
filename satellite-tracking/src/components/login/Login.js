@@ -56,9 +56,13 @@ class Login extends Component {
     // console.log("from state =>", email, password);
     return (
       <div>
-        <Background />
+        <div className="components">
+          <Background />
+        </div>
+        <div className="form-container">
         <form onSubmit={this.login}>
           <div className="login-container">
+            <div className="sign-in-text">Sign-in</div>
             <input
               placeholder="email"
               name="email"
@@ -84,13 +88,16 @@ class Login extends Component {
             <div>
               <input type="submit" value="Submit" className="submit-button" />
             </div>
-            <NavLink to="/signup">
-              <ul>
-                <li className="nonmember">I'm not a member</li>
-              </ul>
-            </NavLink>
+            <div>
+              <NavLink to="/signup">
+                <ul>
+                  <li className="nonmember">I'm not a member</li>
+                </ul>
+              </NavLink>
+            </div>
           </div>
         </form>
+        </div> 
       </div>
     );
   }

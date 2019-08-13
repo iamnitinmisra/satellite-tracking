@@ -17,13 +17,13 @@ module.exports = {
     const db = await req.app.get("db");
     const updateId = req.params.id;
     const updateZip = req.query.zip;
-    console.log("updateId", updateId);
-    console.log("updateZip", updateZip);
+    // console.log("updateId", updateId);
+    // console.log("updateZip", updateZip);
 
     //axios to external api with new zip
     const zipData = await axios
       .get(
-        `https://www.zipcodeapi.com/rest/kOG5lF8QkczEUsfJLvwreaPQLLMAo5Wsp0orHvbfacQOgqRoafnwMP5mZvgQBU70/info.json/${updateZip}/degrees`
+        `https://www.zipcodeapi.com/rest/xb6Ouqgn8iSRHStMqNjzotS7F7iHkfGynZiPBNDecCP2ueSyv5nF7cCcK6veARY0/info.json/${updateZip}/degrees`
       ) //not my api key"
       .then(res => {
         return res.data;

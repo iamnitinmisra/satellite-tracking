@@ -7,7 +7,7 @@ import "./Home.css";
 export default class Home extends Component {
   render() {
     return (
-      <div>
+      <div className="home-container">
         <Background />
         <div className="sign-in-container">
           <NavLink to="/login">

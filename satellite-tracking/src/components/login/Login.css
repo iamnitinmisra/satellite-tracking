@@ -1,15 +1,27 @@
+.form-container {
+    padding-top: 30vh;
+    display: flex;
+    justify-content: center;
+}
+
 .login-container {
     color: white;
     display: flex;
+    width: 300px;
+    height: 270px;
     flex-direction: column;
     align-items: center;
-    padding-top: 40vh;
+    /* padding-top: 40vh; */
+    border: solid rgb(200, 200, 200);
+    border-radius: 30px;
+    background: black;
+    opacity: .8
 }
 
 input{
     width: 150px;
     height: 20px;
-    margin: 5px;
+    margin: 3px;
     transition-duration: 0.4s;
 }
 
@@ -29,11 +41,30 @@ input[type=submit]:hover {
     color: black;
 }
 
-button.nonmember{
+.sign-in-text {
+    font-size: 3em;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.nonmember{
     height: 40px;
-    min-width: 150px;
-    width: 180px;
+    /* min-width: 150px; */
     font-size: 16px;
     border: 0 none;
+    text-decoration: none;
+    display: inline-block;
+    padding: 2px 8px;
+    list-style: none;
+    color: white;
+}
+
+.nonmember:hover{
+    background-color: black;
+    color: white;
+}
+
+ul {
+    padding-inline-start: 0px;
 }
 
