@@ -23,7 +23,7 @@ class Satellite extends Component {
     //       if (JSON.stringify(prevProps.user) !== JSON.stringify(this.props.user)){
     const satelliteInfo = await axios
       .get(
-        `http://www.n2yo.com/rest/v1/satellite/visualpasses/${
+        `https://www.n2yo.com/rest/v1/satellite/visualpasses/${
           this.props.match.params.satId
         }/${this.props.user.user_lat}/${this.props.user.user_lng}/${
           this.state.alt
