@@ -41,7 +41,7 @@ class Navbar extends Component {
     return (
       <header>
         <div className="menu-container">
-          <div>
+          <div className = 'sat-trac-text'>
             <NavLink to="/welcome">SAT-TRAC</NavLink>
           </div>
           <button className="menu-button" onClick={this.toggleTopBarFunction}>

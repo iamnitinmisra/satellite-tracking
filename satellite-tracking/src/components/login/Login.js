@@ -77,6 +77,7 @@ class Login extends Component {
             <input
               placeholder="password"
               name="password"
+              type="password"
               value={password}
               onChange={event =>
                 this.universalChangeHandler(

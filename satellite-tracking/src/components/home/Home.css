@@ -47,7 +47,9 @@ button:hover{
     z-index: 10;
     color: rgb(214,214,214);
     display: flex;
-    font-size: 5em
+    font-size: 5em;
+    font-family: 'Orbitron', sans-serif;
+
 }
 
 .bottom-half {
