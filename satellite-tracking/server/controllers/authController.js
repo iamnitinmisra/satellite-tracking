@@ -83,5 +83,6 @@ module.exports = {
   },
   userSession: (req, res, next) => {
     res.status(200).send(req.session.user);
+    // console.log(req.session.user)
   }
 };

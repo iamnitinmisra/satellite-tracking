@@ -58,6 +58,7 @@ class Profile extends Component {
     if (!this.props.user) {
       return <></>; //this checks to see if redux has a user and if not
     }
+    console.log(this.props.user)
     return (
       <div>
         <div className="components">

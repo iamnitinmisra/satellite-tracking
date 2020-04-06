@@ -18,6 +18,7 @@ app.use(express.json());
 
 massive(CONNECTION_STRING).then(db => {
   app.set("db", db);
+  console.log(process.env)
   console.log("All your base are belong to us");
 });
 

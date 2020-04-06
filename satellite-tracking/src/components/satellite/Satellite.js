@@ -43,12 +43,11 @@ class Satellite extends Component {
   }
 
   render() {
-    // console.log(this.state.myData);
+    console.log(this.state.myData);
     // console.log(this.state.myData.info.satname)
     if (!this.props.user) {
       return <></>;
     }
-    // console.log(this.state.myData)
     // const satName = this.state.myData.info.satname
     const passes = this.state.myData.passes ? (
       this.state.myData.passes.map((pass, i) => (
