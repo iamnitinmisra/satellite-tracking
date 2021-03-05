@@ -1,4 +1,4 @@
-select * from users
-join profile
-on(users.user_id = profile.user_id)
+select * from sat_users
+join sat_profile
+on(sat_users.user_id = sat_profile.user_id)
 where user_email = $1;
