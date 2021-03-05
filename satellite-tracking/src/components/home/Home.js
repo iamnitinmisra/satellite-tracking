@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import Background from "../background/Background";
 import "./Home.css";
-// import axios from "axios";
 
 export default class Home extends Component {
   render() {

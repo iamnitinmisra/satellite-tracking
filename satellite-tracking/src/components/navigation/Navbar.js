@@ -20,7 +20,6 @@ class Navbar extends Component {
 
   toggleTopBarFunction() {
     this.setState((prevState) => {
-      // console.log("hit")
       return {
         toggleTopBar: !prevState.toggleTopBar,
       };
@@ -30,14 +29,12 @@ class Navbar extends Component {
   logout(e) {
     e.preventDefault();
     axios.get("/api/logout").then(() => {
-      this.props.requestUserData(null);
-      // console.log(this.props)
+      this.props.requestUserData({});
       this.props.history.push("/login");
     });
   }
 
   render() {
-    console.log(this.props);
     return (
       <header>
         <div className="menu-container">
