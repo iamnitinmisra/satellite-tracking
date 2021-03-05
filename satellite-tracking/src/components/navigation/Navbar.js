@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { requestUserData } from "../../redux/reducer";
+import { requestUserData, persistentUser } from "../../redux/reducer";
 import "./Navbar.css";
 import axios from "axios";
 
@@ -10,7 +10,7 @@ class Navbar extends Component {
     super(props);
     this.state = {
       user: null,
-      toggleTopBar: false
+      toggleTopBar: false,
       // showMenu: false
       // showSignIn: true,
     };
@@ -18,11 +18,15 @@ class Navbar extends Component {
     this.logout = this.logout.bind(this);
   }
 
+  componentDidMount() {
+    this.props.persistentUser();
+  }
+
   toggleTopBarFunction() {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       // console.log("hit")
       return {
-        toggleTopBar: !prevState.toggleTopBar
+        toggleTopBar: !prevState.toggleTopBar,
       };
     });
   }
@@ -37,11 +41,11 @@ class Navbar extends Component {
   }
 
   render() {
-    // console.log(this.state.toggleTopBar);
+    console.log(this.props);
     return (
       <header>
         <div className="menu-container">
-          <div className = 'sat-trac-text'>
+          <div className="sat-trac-text">
             <NavLink to="/welcome">SAT-TRAC</NavLink>
           </div>
           <button className="menu-button" onClick={this.toggleTopBarFunction}>
@@ -59,7 +63,7 @@ class Navbar extends Component {
               <li>
                 <NavLink to="/profile">Profile</NavLink>
               </li>
-              <form onSubmit={e => this.logout(e)}>
+              <form onSubmit={(e) => this.logout(e)}>
                 <li>
                   <input type="submit" value="Logout" />
                 </li>
@@ -77,12 +81,10 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  requestUserData
+  requestUserData,
+  persistentUser,
 };
 
-const connectInvoked = connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const connectInvoked = connect(mapStateToProps, mapDispatchToProps);
 
 export default withRouter(connectInvoked(Navbar));

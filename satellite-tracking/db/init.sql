@@ -10,7 +10,9 @@ create table sat_users(
 create table sat_profile(
     profile_id serial primary key,
     zip integer not null check (zip between 10000 and 99999),
-    user_id integer references sat_users(user_id)
+    user_id integer references sat_users(user_id),
+    lat numeric(6),
+    lng numeric(6)
 );
 
 -- select * from users join profile
@@ -24,11 +26,13 @@ create table satelliteTracking(
     time_viewable text
 );
 
+select * from sat_users;
+
 -- select * from users join satelliteTracking
 -- on(users.user_id = satelliteTracking.user_id);
 
-select * from sat_users 
-join sat_profile
-on(sat_users.user_id = sat_profile.user_id);
-join satelliteTracking
-on(sat_users.user_id = satelliteTracking.user_id)
+-- select * from sat_users 
+-- join sat_profile
+-- on(sat_users.user_id = sat_profile.user_id);
+-- join satelliteTracking
+-- on(sat_users.user_id = satelliteTracking.user_id)

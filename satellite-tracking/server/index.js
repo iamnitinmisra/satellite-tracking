@@ -15,10 +15,10 @@ const app = express();
 app.use(express.static(`${__dirname}/../build`));
 app.use(express.json());
 
-const path = require("path");
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../build/index.html"));
-});
+// const path = require("path");
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../build/index.html"));
+// });
 
 app.use(
   session({
