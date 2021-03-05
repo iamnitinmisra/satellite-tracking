@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { requestUserData, persistentUser } from "../../redux/reducer";
+import {} from "../../redux/reducer";
 import "./Navbar.css";
 import axios from "axios";
 
@@ -16,10 +16,6 @@ class Navbar extends Component {
     };
     this.toggleTopBarFunction = this.toggleTopBarFunction.bind(this);
     this.logout = this.logout.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.persistentUser();
   }
 
   toggleTopBarFunction() {
@@ -80,10 +76,7 @@ function mapStateToProps(state) {
   return state;
 }
 
-const mapDispatchToProps = {
-  requestUserData,
-  persistentUser,
-};
+const mapDispatchToProps = {};
 
 const connectInvoked = connect(mapStateToProps, mapDispatchToProps);
 

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
-import { requestUserData } from "../../redux/reducer";
 import Moment from "react-moment";
 import Navbar from "../../components/navigation/Navbar";
 import Background from "../../components/background/Background";
 import "./Satellite.scss";
+const { REACT_APP_API_KEY: API_KEY, REACT_APP_REVERSE_PXY } = process.env;
 
 class Satellite extends Component {
   constructor(props) {
@@ -14,41 +14,28 @@ class Satellite extends Component {
       myData: {},
       satName: "",
       alt: 1,
-      days: 7, // check over the course of one week
-      dur: 30 // show if visible for at least 30 seconds
+      dur: 30,
     };
   }
   async componentDidMount() {
-    //   async componentDidUpdate(prevProps) {
-    //       if (JSON.stringify(prevProps.user) !== JSON.stringify(this.props.user)){
-    const satelliteInfo = await axios
-      .get(
-        `https://www.n2yo.com/rest/v1/satellite/visualpasses/${
-          this.props.match.params.satId
-        }/${this.props.user.user_lat}/${this.props.user.user_lng}/${
-          this.state.alt
-        }/${this.state.days}/${
-          this.state.dur
-        }/&apiKey=MLTZU8-SP6X2C-SUV5UQ-467T`
-      )
-      .then(res => {
-        return res.data;
-      })
-      .catch(err => console.log(err));
-    this.setState({
-      myData: satelliteInfo,
-      satName: satelliteInfo.info.satname
-    });
-    // console.log(this.state.myData.info.satname); /*}*/
+    const { user_lat, user_lng } = this.props.user;
+    const { alt, dur } = this.state;
+    const { satId } = this.props.match.params;
+    const satelliteInfo = await axios.get(
+      `${REACT_APP_REVERSE_PXY}/https://api.n2yo.com/rest/v1/satellite/positions/${satId}/${user_lat}/${user_lng}/${alt}/${dur}/&apiKey=${API_KEY}`
+    );
+    console.log(satelliteInfo.data);
+    // this.setState({
+    //   myData: satelliteInfo,
+    //   satName: satelliteInfo.info.satname,
+    // });
   }
 
   render() {
-    console.log(this.state.myData);
-    // console.log(this.state.myData.info.satname)
+    console.log(this.props.user);
     if (!this.props.user) {
       return <></>;
     }
-    // const satName = this.state.myData.info.satname
     const passes = this.state.myData.passes ? (
       this.state.myData.passes.map((pass, i) => (
         <div key={i} className="pass">
@@ -58,14 +45,18 @@ class Satellite extends Component {
           <li>
             <b>Start Azimuth:</b> {pass.startAz}° {pass.startAzCompass}
           </li>
-          <li><b>Max Elevation:</b> {pass.maxEl}</li>
           <li>
-          <b>End Time:</b> <Moment unix>{pass.endUTC}</Moment>
+            <b>Max Elevation:</b> {pass.maxEl}
           </li>
           <li>
-          <b>End Azimuth:</b> {pass.endAz}° {pass.endAzCompass}
+            <b>End Time:</b> <Moment unix>{pass.endUTC}</Moment>
           </li>
-          <li><b>Duration:</b> {Math.round((pass.duration / 60) * 10) / 10}min</li>
+          <li>
+            <b>End Azimuth:</b> {pass.endAz}° {pass.endAzCompass}
+          </li>
+          <li>
+            <b>Duration:</b> {Math.round((pass.duration / 60) * 10) / 10}min
+          </li>
           <br />
         </div>
       ))
@@ -99,13 +90,8 @@ function mapStateToProps(state) {
   return state;
 }
 
-const mapDispatchToProps = {
-  requestUserData
-};
+const mapDispatchToProps = {};
 
-const connectInvoked = connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const connectInvoked = connect(mapStateToProps, mapDispatchToProps);
 
 export default connectInvoked(Satellite);

@@ -5,23 +5,25 @@ import Login from "./components/login/Login";
 import Home from "./components/home/Home";
 import Profile from "./components/profile/Profile";
 import Satellite from "./components/satellite/Satellite";
-import Welcome from "./components/welcome/Welcome"
+import Welcome from "./components/welcome/Welcome";
 import { requestUserData } from "./redux/reducer";
 import { connect } from "react-redux";
 import "./App.css";
-import Axios from "axios";
 import Search from "./components/search/Search";
+import axios from "axios";
 
 class App extends Component {
-
-  componentDidMount() {
-    Axios.get("/api/session").then(res => {
-      this.props.requestUserData(res.data);
-      // console.log(res.data)
-    });
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  async componentDidMount() {
+    const user = await axios.get("/api/session");
+    this.props.requestUserData(user.data);
   }
 
   render() {
+    console.log(this.props);
     return (
       <div>
         {/* <Navbar /> */}
@@ -46,12 +48,9 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  requestUserData
+  requestUserData,
 };
 
-const connectInvoked = connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const connectInvoked = connect(mapStateToProps, mapDispatchToProps);
 
 export default connectInvoked(App);
