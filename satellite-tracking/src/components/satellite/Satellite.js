@@ -44,11 +44,10 @@ class Satellite extends Component {
     if (!this.props.user) {
       return <></>;
     }
-
+    console.log(this.state.passes);
     const passes = this.state.passes.map((pass) => {
       const minutes = Math.floor(pass.duration / 60);
       const seconds = pass.duration - minutes * 60;
-      console.log(minutes, seconds);
       return (
         <ul className="pass">
           <li>
@@ -69,40 +68,6 @@ class Satellite extends Component {
         </ul>
       );
     });
-    // const passes = this.state.myData.passes ? (
-    //   this.state.myData.passes.map((pass, i) => (
-    //     var d = new Date(1495159447834);
-    //     var utc = d.getTime() + d.getTimezoneOffset() * 60000; //This converts to UTC 00:00
-    //     var nd = new Date(utc + 3600000 * offset);
-    //     console.log(nd.toLocaleString());
-    //     <div key={i} className="pass">
-    //       <li>
-    //         <b>Start Time:</b> <Moment unix>{pass.startUTC}</Moment>
-    //       </li>
-    //       <li>
-    //         <b>Start Azimuth:</b> {pass.startAz}° {pass.startAzCompass}
-    //       </li>
-    //       <li>
-    //         <b>Max Elevation:</b> {pass.maxEl}
-    //       </li>
-    //       <li>
-    //         <b>End Time:</b> <Moment unix>{pass.endUTC}</Moment>
-    //       </li>
-    //       <li>
-    //         <b>End Azimuth:</b> {pass.endAz}° {pass.endAzCompass}
-    //       </li>
-    //       <li>
-    //         <b>Duration:</b> {Math.round((pass.duration / 60) * 10) / 10}min
-    //       </li>
-    //       <br />
-    //     </div>
-    //   ))
-    // ) : (
-    //   <div className="no-pass">
-    //     Unfortunately, over the next 7 days, there will be no visual passes
-    //     overhead from your location
-    //   </div>
-    // );
 
     return (
       <div>
@@ -114,7 +79,11 @@ class Satellite extends Component {
           <div className="passes-container">
             <div className="satName">{this.state.info.satname}</div>
             <div>
-              <ul>{passes}</ul>
+              {!this.state.passes.length ? (
+                <ul>There are no passes in the next 24 hours</ul>
+              ) : (
+                <ul>{passes}</ul>
+              )}
             </div>
           </div>
         </div>
