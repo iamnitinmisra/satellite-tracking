@@ -21,7 +21,6 @@ module.exports = {
 
       if (matchedPassword) {
         foundUser[0];
-        // console.log(foundUser[0]);
         req.session.user = {
           user_id: foundUser[0].user_id,
           user_email: foundUser[0].user_email,
@@ -47,17 +46,13 @@ module.exports = {
         `https://www.zipcodeapi.com/rest/xb6Ouqgn8iSRHStMqNjzotS7F7iHkfGynZiPBNDecCP2ueSyv5nF7cCcK6veARY0/info.json/${zip}/degrees`
       ) //not my api key"
       .then((res) => {
-        // console.log(res.data);
         return res.data;
       })
       .catch((err) => console.log(err));
-    console.log(zipData);
     const lat = zipData.lat;
     const lng = zipData.lng;
 
     await db.select_user(email).then(([foundUser]) => {
-      //check here for async error
-      // console.log(foundUser);
       if (foundUser) {
         res.status(409).send({ warning: "That email is already registered" });
       } else {
@@ -66,7 +61,6 @@ module.exports = {
           bcrypt.hash(password, salt).then((hashedPassword) => {
             db.create_user([hashedPassword, email])
               .then((user) => {
-                // console.log("this is the created user", user);
                 db.create_profile([user[0].user_id, zip, lat, lng]).then(
                   ([user]) => {
                     res.sendStatus(200);
@@ -81,7 +75,7 @@ module.exports = {
   },
   logout: (req, res, next) => {
     req.session.destroy();
-    console.log("USER LOGOUT - Session Destroyed");
+    // console.log("USER LOGOUT - Session Destroyed");
     return res.sendStatus(200);
   },
 

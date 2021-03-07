@@ -15,14 +15,13 @@ class Profile extends Component {
       latitude: "",
       longitude: "",
       hideZipInput: true,
-      trackedSatellites: ""
+      trackedSatellites: "",
     };
     this.updateZip = this.updateZip.bind(this);
   }
 
   deleteProfile(id) {
-    console.log("delete button hit");
-    axios.delete(`/api/profile/${id}`).then(res => {
+    axios.delete(`/api/profile/${id}`).then((res) => {
       this.props.requestUserData(null); // clears out redux store
       this.setState({ user: res.data });
       this.props.history.push("/login");
@@ -31,34 +30,31 @@ class Profile extends Component {
 
   updateZip(e, id, zip) {
     e.preventDefault();
-    axios.put(`/api/profile/${id}?zip=${zip}`).then(res => {
+    axios.put(`/api/profile/${id}?zip=${zip}`).then((res) => {
       this.setState({ user: res.data });
       this.props.requestUserData(res.data);
-      // console.log(this.props.user);
     });
   }
 
   hideZipInputToggle() {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return {
-        hideZipInput: !prevState.hideZipInput
+        hideZipInput: !prevState.hideZipInput,
       };
     });
   }
 
   universalChangeHandler(property, value) {
     this.setState({
-      [property]: value
+      [property]: value,
     });
   }
 
   render() {
     const { zip } = this.state;
-    // console.log(zip);
     if (!this.props.user) {
       return <></>; //this checks to see if redux has a user and if not
     }
-    console.log(this.props.user)
     return (
       <div>
         <div className="components">
@@ -78,7 +74,7 @@ class Profile extends Component {
                 }
               >
                 <form
-                  onSubmit={e =>
+                  onSubmit={(e) =>
                     this.updateZip(e, this.props.user.user_id, zip)
                   }
                 >
@@ -87,7 +83,7 @@ class Profile extends Component {
                     placeholder={this.props.user.user_zip}
                     name="zip"
                     value={zip}
-                    onChange={event =>
+                    onChange={(event) =>
                       this.universalChangeHandler(
                         event.target.name,
                         event.target.value
@@ -139,12 +135,9 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  requestUserData
+  requestUserData,
 };
 
-const connectInvoked = connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const connectInvoked = connect(mapStateToProps, mapDispatchToProps);
 
 export default connectInvoked(Profile);

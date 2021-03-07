@@ -44,12 +44,11 @@ class Satellite extends Component {
     if (!this.props.user) {
       return <></>;
     }
-    console.log(this.state.passes);
-    const passes = this.state.passes.map((pass) => {
+    const passes = this.state.passes.map((pass, i) => {
       const minutes = Math.floor(pass.duration / 60);
       const seconds = pass.duration - minutes * 60;
       return (
-        <ul className="pass">
+        <ul className="pass" key={i}>
           <li>
             Start Time: <Moment unix>{pass.startUTC}</Moment>
           </li>

@@ -11,7 +11,7 @@ export default class Signup extends Component {
       lastName: "",
       zip: "",
       email: "",
-      password: ""
+      password: "",
     };
     this.register = this.register.bind(this);
   }
@@ -21,9 +21,9 @@ export default class Signup extends Component {
       .post("/api/register", {
         email: this.state.email,
         password: this.state.password,
-        zip: this.state.zip
+        zip: this.state.zip,
       })
-      .then(res => {
+      .then((res) => {
         if (res.data.warning) {
           alert(res.data.warning);
         } else {
@@ -34,87 +34,85 @@ export default class Signup extends Component {
 
   universalChangeHandler(property, value) {
     this.setState({
-      [property]: value
+      [property]: value,
     });
   }
 
   render() {
     const { firstName, lastName, zip, email, password } = this.state;
-    // console.log(firstName, lastName, zip, email, password);
     return (
       <div>
-        <div className = 'components'>
-        <Background />
+        <div className="components">
+          <Background />
         </div>
-        <div className = 'form-container'>
-        <form onSubmit={this.register}>
-          {/* <div className="registration-container"> */}
-          <div className='sign-up-form'>
-            <div className='sign-up'>Sign-up</div>
-            <input
-              type="text"
-              placeholder="First Name"
-              name="firstName"
-              value={firstName}
-              onChange={event =>
-                this.universalChangeHandler(
-                  event.target.name,
-                  event.target.value
-                )
-              }
-            />
-            <input
-              placeholder="Last Name"
-              name="lastName"
-              value={lastName}
-              onChange={event =>
-                this.universalChangeHandler(
-                  event.target.name,
-                  event.target.value
-                )
-              }
-            />
-            <input
-              placeholder="Zip Code"
-              name="zip"
-              value={zip}
-              onChange={event =>
-                this.universalChangeHandler(
-                  event.target.name,
-                  event.target.value
-                )
-              }
-            />
-            <input
-              placeholder="Email"
-              name="email"
-              value={email}
-              onChange={event =>
-                this.universalChangeHandler(
-                  event.target.name,
-                  event.target.value
-                )
-              }
-            />
-            <input
-              placeholder="Password"
-              name="password"
-              type="password"
-              value={password}
-              onChange={event =>
-                this.universalChangeHandler(
-                  event.target.name,
-                  event.target.value
-                )
-              }
-            />
-            <input type="submit" value="Submit" />
-          </div>
-          {/* </div> */}
-        </form>
+        <div className="form-container">
+          <form onSubmit={this.register}>
+            {/* <div className="registration-container"> */}
+            <div className="sign-up-form">
+              <div className="sign-up">Sign-up</div>
+              <input
+                type="text"
+                placeholder="First Name"
+                name="firstName"
+                value={firstName}
+                onChange={(event) =>
+                  this.universalChangeHandler(
+                    event.target.name,
+                    event.target.value
+                  )
+                }
+              />
+              <input
+                placeholder="Last Name"
+                name="lastName"
+                value={lastName}
+                onChange={(event) =>
+                  this.universalChangeHandler(
+                    event.target.name,
+                    event.target.value
+                  )
+                }
+              />
+              <input
+                placeholder="Zip Code"
+                name="zip"
+                value={zip}
+                onChange={(event) =>
+                  this.universalChangeHandler(
+                    event.target.name,
+                    event.target.value
+                  )
+                }
+              />
+              <input
+                placeholder="Email"
+                name="email"
+                value={email}
+                onChange={(event) =>
+                  this.universalChangeHandler(
+                    event.target.name,
+                    event.target.value
+                  )
+                }
+              />
+              <input
+                placeholder="Password"
+                name="password"
+                type="password"
+                value={password}
+                onChange={(event) =>
+                  this.universalChangeHandler(
+                    event.target.name,
+                    event.target.value
+                  )
+                }
+              />
+              <input type="submit" value="Submit" />
+            </div>
+            {/* </div> */}
+          </form>
         </div>
       </div>
-
     );
   }
 }
