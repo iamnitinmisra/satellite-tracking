@@ -11,61 +11,101 @@ class Satellite extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      myData: {},
-      satName: "",
-      alt: 1,
-      dur: 30,
+      info: {},
+      passes: [],
+      alt: 1, // observer altitude above sea level
+      days: 1, // number of days of prediction (max 10)
+      min_visibility: 60, //minimum number of seconds the satellite should be visible
     };
   }
   async componentDidMount() {
     const { user_lat, user_lng } = this.props.user;
-    const { alt, dur } = this.state;
+    const { alt, days, min_visibility } = this.state;
     const { satId } = this.props.match.params;
+    const url = "https://api.n2yo.com/rest/v1/satellite";
     const satelliteInfo = await axios.get(
-      `${REACT_APP_REVERSE_PXY}/https://api.n2yo.com/rest/v1/satellite/positions/${satId}/${user_lat}/${user_lng}/${alt}/${dur}/&apiKey=${API_KEY}`
+      // `${REACT_APP_REVERSE_PXY}/${url}/positions/${satId}/${user_lat}/${user_lng}/${alt}/${dur}/&apiKey=${API_KEY}`
+      `${REACT_APP_REVERSE_PXY}/${url}/visualpasses/${satId}/${user_lat}/${user_lng}/${alt}/${days}/${min_visibility}/&apiKey=${API_KEY}`
     );
     console.log(satelliteInfo.data);
-    // this.setState({
-    //   myData: satelliteInfo,
-    //   satName: satelliteInfo.info.satname,
-    // });
+    const { info, passes } = satelliteInfo.data;
+    this.setState({
+      info: info,
+      passes: passes,
+    });
+  }
+
+  convertEpochToSpecificTimezone(offset) {
+    var d = new Date(1495159447834);
+    var utc = d.getTime() + d.getTimezoneOffset() * 60000; //This converts to UTC 00:00
+    var nd = new Date(utc + 3600000 * offset);
+    console.log(nd.toLocaleString());
   }
 
   render() {
-    console.log(this.props.user);
+    // console.log(this.state);
     if (!this.props.user) {
       return <></>;
     }
-    const passes = this.state.myData.passes ? (
-      this.state.myData.passes.map((pass, i) => (
-        <div key={i} className="pass">
+
+    const passes = this.state.passes.map((pass) => {
+      const minutes = Math.floor(pass.duration / 60);
+      const seconds = pass.duration - minutes * 60;
+      console.log(minutes, seconds);
+      return (
+        <ul className="pass">
           <li>
-            <b>Start Time:</b> <Moment unix>{pass.startUTC}</Moment>
+            Start Time: <Moment unix>{pass.startUTC}</Moment>
+          </li>
+          <li>Start Azimuth: {pass.startAz}</li>
+          <li>Max Elevation: {pass.maxEl}</li>
+          <li>
+            @ <Moment unix>{pass.maxUTC}</Moment>
+          </li>
+          <li>End Azimuth: {pass.endAz}</li>
+          <li>
+            End Time: <Moment unix>{pass.endAz}</Moment>
           </li>
           <li>
-            <b>Start Azimuth:</b> {pass.startAz}° {pass.startAzCompass}
+            Duration: {minutes}m {seconds}s
           </li>
-          <li>
-            <b>Max Elevation:</b> {pass.maxEl}
-          </li>
-          <li>
-            <b>End Time:</b> <Moment unix>{pass.endUTC}</Moment>
-          </li>
-          <li>
-            <b>End Azimuth:</b> {pass.endAz}° {pass.endAzCompass}
-          </li>
-          <li>
-            <b>Duration:</b> {Math.round((pass.duration / 60) * 10) / 10}min
-          </li>
-          <br />
-        </div>
-      ))
-    ) : (
-      <div className="no-pass">
-        Unfortunately, over the next 7 days, there will be no visual passes
-        overhead from your location
-      </div>
-    );
+        </ul>
+      );
+    });
+    // const passes = this.state.myData.passes ? (
+    //   this.state.myData.passes.map((pass, i) => (
+    //     var d = new Date(1495159447834);
+    //     var utc = d.getTime() + d.getTimezoneOffset() * 60000; //This converts to UTC 00:00
+    //     var nd = new Date(utc + 3600000 * offset);
+    //     console.log(nd.toLocaleString());
+    //     <div key={i} className="pass">
+    //       <li>
+    //         <b>Start Time:</b> <Moment unix>{pass.startUTC}</Moment>
+    //       </li>
+    //       <li>
+    //         <b>Start Azimuth:</b> {pass.startAz}° {pass.startAzCompass}
+    //       </li>
+    //       <li>
+    //         <b>Max Elevation:</b> {pass.maxEl}
+    //       </li>
+    //       <li>
+    //         <b>End Time:</b> <Moment unix>{pass.endUTC}</Moment>
+    //       </li>
+    //       <li>
+    //         <b>End Azimuth:</b> {pass.endAz}° {pass.endAzCompass}
+    //       </li>
+    //       <li>
+    //         <b>Duration:</b> {Math.round((pass.duration / 60) * 10) / 10}min
+    //       </li>
+    //       <br />
+    //     </div>
+    //   ))
+    // ) : (
+    //   <div className="no-pass">
+    //     Unfortunately, over the next 7 days, there will be no visual passes
+    //     overhead from your location
+    //   </div>
+    // );
 
     return (
       <div>
@@ -75,7 +115,7 @@ class Satellite extends Component {
         </div>
         <div className="sat-component-container">
           <div className="passes-container">
-            <div className="satName">{this.state.satName}</div>
+            <div className="satName">{this.state.info.satname}</div>
             <div>
               <ul>{passes}</ul>
             </div>
