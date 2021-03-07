@@ -54,7 +54,7 @@ class Navbar extends Component {
                 <NavLink to="/search">Search</NavLink>
               </li>
               <li>
-                z<NavLink to="/profile">Profile</NavLink>
+                <NavLink to="/profile">Profile</NavLink>
               </li>
               <form onSubmit={(e) => this.logout(e)}>
                 <li>
