@@ -68,10 +68,8 @@ module.exports = {
               .then((user) => {
                 // console.log("this is the created user", user);
                 db.create_profile([user[0].user_id, zip, lat, lng]).then(
-                  (user) => {
-                    console.log("this is the joined profile", user);
-                    req.session.user = user;
-                    return res.status(200).send(req.session.user);
+                  ([user]) => {
+                    res.sendStatus(200);
                   }
                 );
               })
