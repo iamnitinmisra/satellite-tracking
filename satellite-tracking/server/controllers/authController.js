@@ -81,7 +81,8 @@ module.exports = {
   },
   logout: (req, res, next) => {
     req.session.destroy();
-    return res.status(200).send([]);
+    console.log("USER LOGOUT - Session Destroyed");
+    return res.sendStatus(200);
   },
 
   userSession: (req, res, next) => {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import {} from "../../redux/reducer";
+import { requestUserData } from "../../redux/reducer";
 import "./Navbar.css";
 import axios from "axios";
 
@@ -73,7 +73,9 @@ function mapStateToProps(state) {
   return state;
 }
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  requestUserData,
+};
 
 const connectInvoked = connect(mapStateToProps, mapDispatchToProps);
 
