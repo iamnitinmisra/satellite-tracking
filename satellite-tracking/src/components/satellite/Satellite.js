@@ -24,26 +24,23 @@ class Satellite extends Component {
     const { satId } = this.props.match.params;
     const url = "https://api.n2yo.com/rest/v1/satellite";
     const satelliteInfo = await axios.get(
-      // `${REACT_APP_REVERSE_PXY}/${url}/positions/${satId}/${user_lat}/${user_lng}/${alt}/${dur}/&apiKey=${API_KEY}`
       `${REACT_APP_REVERSE_PXY}/${url}/visualpasses/${satId}/${user_lat}/${user_lng}/${alt}/${days}/${min_visibility}/&apiKey=${API_KEY}`
     );
-    console.log(satelliteInfo.data);
     const { info, passes } = satelliteInfo.data;
-    this.setState({
-      info: info,
-      passes: passes,
-    });
-  }
 
-  convertEpochToSpecificTimezone(offset) {
-    var d = new Date(1495159447834);
-    var utc = d.getTime() + d.getTimezoneOffset() * 60000; //This converts to UTC 00:00
-    var nd = new Date(utc + 3600000 * offset);
-    console.log(nd.toLocaleString());
+    if (passes) {
+      this.setState({
+        info: info,
+        passes: passes,
+      });
+    } else {
+      this.setState({
+        info: info,
+      });
+    }
   }
 
   render() {
-    // console.log(this.state);
     if (!this.props.user) {
       return <></>;
     }
